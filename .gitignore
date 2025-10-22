@@ -1,0 +1,4 @@
+node_modules
+.env.local
+*.zip
+"node_modules\n.env.local\n*.zip" 
