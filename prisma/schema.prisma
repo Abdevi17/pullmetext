@@ -1,0 +1,32 @@
+// Prisma schema defining the database models for PullMeText.
+// Users can optionally log in to save their conversion history and upgrade to pro.
+// Conversions track each individual text humanization request.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String      @id @default(uuid())
+  email      String      @unique
+  name       String?
+  isPro      Boolean     @default(false)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  conversions Conversion[]
+}
+
+model Conversion {
+  id        String   @id @default(uuid())
+  inputText String
+  tone      String
+  outputText String
+  createdAt DateTime @default(now())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
