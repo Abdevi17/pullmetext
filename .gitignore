@@ -1,3 +1,6 @@
 echo node_modules > .gitignore
 echo .env.local >> .gitignore
 echo *.zip >> .gitignore
+# Next.js build output
+.next
+out
